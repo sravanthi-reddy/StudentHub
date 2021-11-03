@@ -131,6 +131,7 @@ namespace StudentHub.Models
             {
                 Console.WriteLine("Please enter valid email id");
                 Welcome.DisplayMenu();
+
             }
         }
     }
