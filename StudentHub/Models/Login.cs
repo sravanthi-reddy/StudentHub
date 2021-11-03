@@ -10,7 +10,9 @@ namespace StudentHub.Models
 {
     class Login
     {
-        public bool AuthMethod(List<StudentLogin> creds, string u, string p)
+        static int  tableWidth = 80;
+
+        public bool Authentication(List<StudentLogin> creds, string u, string p)
         {
             bool IsAuthenticated = false;
             foreach (var cred in creds)
@@ -26,30 +28,82 @@ namespace StudentHub.Models
             return IsAuthenticated;
         }
 
-        public void DisplayMethod(List<StudentInformation> sInformations, string u)
+        public void ShowUserInfo(List<StudentInformation> sInformations, string u)
         {
-            const string UNDERLINE = "\x1B[4m";
-            const string RESET = "\x1B[0m";
+            Console.WriteLine("Please find your details below : \n");
             foreach (var sInfo in sInformations)
             {
                 if (sInfo.StudentID == u)
                 {
-                    Console.WriteLine("Your Saved Details in the system \n\n" +
-                        $"Student ID:{sInfo.StudentID}\n" + UNDERLINE + $"Name\n\t" + RESET + $"First Name : {sInfo.Name.FirstName}" +
-                        $"\n\tMiddle Name :{sInfo.Name.MiddleName}\n\tLast Name : {sInfo.Name.LastName}\nSocial Insurance Number : {sInfo.SocialInsuranceNumber}\n" +
-                        UNDERLINE + $"Email" + RESET + $"\n\tPersonal Email : {sInfo.Email.PersonalEmail}\n\tStudent Email : {sInfo.Email.StudentEmail}\n" +
-                        $"Mobile : {sInfo.Mobile}\n" + UNDERLINE + "Emergency" + RESET + $"\n\tEmergency Contact Name : {sInfo.Emergency.EmergencyContactName}\n\tEmergency Contact Relation : {sInfo.Emergency.EmergencyRelation}\n\tEmergency Contact Mobile Number : {sInfo.Emergency.EmergencyMobileNumber}\n" +
-                        $"Nationality : {sInfo.Nationality}\nTerm : {sInfo.Term}\nCourse Enrolled In : {sInfo.CourseEnrolledIn}\nCourse Time Table : {sInfo.TimeTable}\nSkills : {sInfo.Skills}\nOther Course Interests : {sInfo.OtherCourseInterests}\nWork Experience : {sInfo.WorkExperience}\nLinkedInURL : {sInfo.LinkedInURL}\nPassion : {sInfo.Passion}\n" +
-                        $"Github URL : {sInfo.GithubURL}\n" + UNDERLINE + "MailingAddress" + RESET + $"\n\tUnitNumber : {sInfo.MailingAddress.UnitNumber}\n\tStreet Number: {sInfo.MailingAddress.StreetName}\n\tStreet Name :  {sInfo.MailingAddress.StreetName}\n\tCity : {sInfo.MailingAddress.city}\n\tProvince : {sInfo.MailingAddress.Province}\n\tCountry : {sInfo.MailingAddress.Country}\n\tZip COde : {sInfo.MailingAddress.ZipCode}");
-
+                    PrintLine();
+                    PrintRow("StudentId", sInfo.StudentID);
+                    PrintRow("First Name", sInfo.Name.FirstName);
+                    PrintRow("Middle Name", sInfo.Name.MiddleName);
+                    PrintRow("Last Name", sInfo.Name.LastName);
+                    PrintRow("Social Insurance Number", sInfo.SocialInsuranceNumber);
+                    PrintRow("Personal Email", sInfo.Email.PersonalEmail);
+                    PrintRow("Student Email", sInfo.Email.StudentEmail);
+                    PrintRow("Mobile Number", sInfo.Mobile);
+                    PrintRow("Emergency Contact Name", sInfo.Emergency.EmergencyContactName);
+                    PrintRow("Emergency Contact Relation", sInfo.Emergency.EmergencyRelation);
+                    PrintRow("Emergency Contact Mobile Number", sInfo.Emergency.EmergencyMobileNumber);
+                    PrintRow("Nationality", sInfo.Nationality);
+                    PrintRow("Term", sInfo.Term);
+                    PrintRow("Course Enrolled In", sInfo.CourseEnrolledIn);
+                    PrintRow("Course Time Table", sInfo.TimeTable);
+                    PrintRow("Skills", sInfo.Skills);
+                    PrintRow("Other Course Interests",sInfo.OtherCourseInterests);
+                    PrintRow("Work Experience", sInfo.WorkExperience);
+                    PrintRow("LinkedInURL", sInfo.LinkedInURL);
+                    PrintRow("Passion", sInfo.Passion);
+                    PrintRow("GithubURL", sInfo.GithubURL);
+                    PrintRow("Unit Number", sInfo.MailingAddress.UnitNumber);
+                    PrintRow("Street Number", sInfo.MailingAddress.StreetNumber);
+                    PrintRow("Street Name", sInfo.MailingAddress.StreetName);
+                    PrintRow("City", sInfo.MailingAddress.city);
+                    PrintRow("Province", sInfo.MailingAddress.Province);
+                    PrintRow("Country", sInfo.MailingAddress.Country);
+                    PrintRow("ZipCode", sInfo.MailingAddress.ZipCode);
                 }
             }
 
         }
-
-        public void Upd_Del_Change(List<StudentInformation> sInformations, List<StudentLogin> creds, string u, string Info_filepath, string login_filepath)
+        static void PrintLine()
         {
-            Console.WriteLine("\nEnter 1 to Update any of your above details in the system\nEnter 2 to Change Your Password\nEnter 3 to Delete your account\nEnter 4 to exit the application");
+            Console.WriteLine(new string('-', tableWidth));
+        }
+
+        static void PrintRow(params string[] columns)
+        {
+            int width = (tableWidth - columns.Length) / columns.Length;
+            string row = "|";
+
+            foreach (string column in columns)
+            {
+                row += AlignCentre(column, width) + "|";
+            }
+
+            Console.WriteLine(row);
+            PrintLine();
+        }
+
+        static string AlignCentre(string text, int width)
+        {
+            text = text.Length > width ? text.Substring(0, width - 3) + "..." : text;
+
+            if (string.IsNullOrEmpty(text))
+            {
+                return new string(' ', width);
+            }
+            else
+            {
+                return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
+            }
+        }
+
+        public void ModifyInfo(List<StudentInformation> sInformations, List<StudentLogin> creds, string u, string Info_filepath, string login_filepath)
+        {
+            Console.WriteLine("\nEnter 1 to Update any of your above details in the system\nEnter 2 to Change Your Password\nEnter 3 to Delete your account\nEnter 4 to go back to the Main Menu\nEnter 5 to exit the application");
             int userinput = Convert.ToInt32(Console.ReadLine());
             switch (userinput)
             {
@@ -57,7 +111,8 @@ namespace StudentHub.Models
                     {
                         updateMethod(sInformations, u, Info_filepath);
                         Console.WriteLine("Here are your details after the update \n");
-                        DisplayMethod(sInformations, u);
+                        ShowUserInfo(sInformations, u);
+                        ModifyInfo(sInformations,creds,u,Info_filepath,login_filepath);
                         break;
                     }
                 case 2:
@@ -68,9 +123,17 @@ namespace StudentHub.Models
                 case 3:
                     {
                         DeleteAccountMethod(creds, login_filepath, sInformations, Info_filepath, u);
+                        Console.WriteLine("Sending back to Main Menu");
+                        Welcome.DisplayMenu();
                         break;
                     }
                 case 4:
+                    {
+                        Console.WriteLine("Sending you back to Menu Menu");
+                        Welcome.DisplayMenu();
+                        break;
+                    }
+                case 5:
                     {
                         Console.WriteLine("Exiting Application");
                         Environment.Exit(1);
@@ -78,8 +141,8 @@ namespace StudentHub.Models
                     }
                 default:
                     {
-                        Console.WriteLine("Invalid Input. Exiting Application");
-                        Environment.Exit(1);
+                        Console.WriteLine("Invalid Input. Sending you back to Main Menu");
+                        Welcome.DisplayMenu();
                         break;
                     }
             }
@@ -138,24 +201,24 @@ namespace StudentHub.Models
                 if (cred.username == u) { cred.password = upd_password; }
             }
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string Jsonstring = System.Text.Json.JsonSerializer.Serialize(creds, options);
+            string Jsonstring = JsonSerializer.Serialize(creds, options);
             using (StreamWriter sw = new StreamWriter(login_filepath))
             {
                 sw.WriteLine(Jsonstring);
             }
             Console.WriteLine("Congrats. We have update your password successfully. Sending you to Main menu");
-            Welcome w = new Welcome();
-            Welcome.DisplayOptions();
+            Welcome.DisplayMenu();
         }
 
         public void updateMethod(List<StudentInformation> sInformations, string u, string Info_filepath)
         {
 
             Console.WriteLine("Enter the Numbers coresponding to the detail you would like to update with comma seperation\n" +
-         "1. First Name\n2. Middle Name\n3. LastName\n4. SocialInsuranceNumber\n5. Personal Email\n6. Passion or Hobbies" +
-         "7. Mobile Number\n8. Emergency Contact Name\n9. Relation With EMergency Contact\n10. Emergency Mobile Number" +
-         "11. Nationality\n12. Term\n13. Course Enrolled In\n14. Course Time Table\n15. Skills\n16. Other Course Interests" +
-         "17. Work Experience\n18. LinkedInURL\n19. GithubURL\n20. Unit Number\n21. Street Number\n22. StreetName\n23. City\n24. Province\n25. Country\n26. Zip Code");
+         "1. First Name\n2. Middle Name\n3. LastName\n4. SocialInsuranceNumber\n5. Personal Email\n"+
+         "6. Mobile Number\n7. Emergency Contact Name\n8. Relation With EMergency Contact\n9. Emergency Mobile Number" +
+         "10. Nationality\n11. Term\n12. Course Enrolled In\n13. Course Time Table\n14. Skills\n15. Other Course Interests" +
+         "16. Work Experience\n17. LinkedInURL\n18. Passion\n19. GithubURL\n20. Unit Number\n21. Street Number\n22. StreetName\n" +
+         "23. City\n24. Province\n25. Country\n26. ZipCode");
             string inputkeys = Console.ReadLine();
             string[] updatekeys = inputkeys.Split(',');
 
@@ -190,56 +253,56 @@ namespace StudentHub.Models
                                 sInfo.Email.PersonalEmail = (Temp == "") ? sInfo.Email.PersonalEmail : Temp;
                                 break;
                             case 6:
-                                Console.WriteLine("Enter your Passion Or Hobbies :");
-                                sInfo.Passion = Console.ReadLine();
-                                break;
-                            case 7:
                                 Console.WriteLine("Enter your Mobile Number :");
                                 sInfo.Mobile = Console.ReadLine();
                                 break;
-                            case 8:
+                            case 7:
                                 Console.WriteLine("Enter your Emergency Contact Name :");
                                 sInfo.Emergency.EmergencyContactName = Console.ReadLine();
                                 break;
-                            case 9:
+                            case 8:
                                 Console.WriteLine("Enter Your Relation with Emergency Contact :");
                                 sInfo.Emergency.EmergencyRelation = Console.ReadLine();
                                 break;
-                            case 10:
+                            case 9:
                                 Console.WriteLine("Enter Your Emergency Contact Mobile Number :");
                                 sInfo.Emergency.EmergencyMobileNumber = Console.ReadLine();
                                 break;
-                            case 11:
+                            case 10:
                                 Console.WriteLine("Enter Your Nationality :");
                                 sInfo.Nationality = Console.ReadLine();
                                 break;
-                            case 12:
+                            case 11:
                                 Console.WriteLine("Enter Your Term (example: Fall 2021):");
                                 sInfo.Term = Console.ReadLine();
                                 break;
-                            case 13:
+                            case 12:
                                 Console.WriteLine("In which Course are you Enrolled In :");
                                 sInfo.CourseEnrolledIn = Console.ReadLine();
                                 break;
-                            case 14:
+                            case 13:
                                 Console.WriteLine("Enter Your Course TimeTable:");
                                 sInfo.TimeTable = Console.ReadLine();
                                 break;
-                            case 15:
+                            case 14:
                                 Console.WriteLine("Enter Your Skills (Seperated by Comma) :");
                                 sInfo.Skills = Console.ReadLine();
                                 break;
-                            case 16:
-                                Console.WriteLine("Enter any other Georgian COllege Course you are intrested in (If applicable):");
+                            case 15:
+                                Console.WriteLine("Enter any other Course you are intrested in (If applicable):");
                                 sInfo.OtherCourseInterests = Console.ReadLine();
                                 break;
-                            case 17:
+                            case 16:
                                 Console.WriteLine("How many years of work experience do you have :");
                                 sInfo.WorkExperience = Console.ReadLine();
                                 break;
-                            case 18:
+                            case 17:
                                 Console.WriteLine("Enter your LinkedInURL :");
                                 sInfo.LinkedInURL = Console.ReadLine();
+                                break;
+                            case 18:
+                                Console.WriteLine("Enter your Passion Or Hobbies :");
+                                sInfo.Passion = Console.ReadLine();
                                 break;
                             case 19:
                                 Console.WriteLine("Enter your GitHub URL :");
@@ -283,7 +346,7 @@ namespace StudentHub.Models
             }
 
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string JsonInfostring = System.Text.Json.JsonSerializer.Serialize(sInformations, options);
+            string JsonInfostring = JsonSerializer.Serialize(sInformations, options);
             using (StreamWriter swinfo = new StreamWriter(Info_filepath))
             {
                 swinfo.WriteLine(JsonInfostring);

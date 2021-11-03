@@ -10,11 +10,11 @@ namespace StudentHub.Models
 {
     class RecoverAccount
     {
-        public void RecoverAccountMethod()
+        public void RecoverySecurityCheck(string path)
         {
             GetRandomNumber RG = new GetRandomNumber();
             bool NoAccountExists = true;
-            string login_filepath = @"C:\Users\Sravanthi Nuthula/Desktop\StudentLoginCreds.json";
+            string login_filepath = path + "StudentLoginCreds.json";
             Console.WriteLine("Enter your UserName : ");
             string u = Console.ReadLine();
 
@@ -39,12 +39,12 @@ namespace StudentHub.Models
                             {
                                 Console.WriteLine($"Thanks for confirming. Your password is {cred.password}\n" +
                                 $"Driving you to main menu \n");
-                                Welcome.DisplayOptions();
+                                Welcome.DisplayMenu();
                             }
                             else
                             {
                                 Console.WriteLine("The entered answer does not match. Driving you to main menu again\n");
-                                Welcome.DisplayOptions();
+                                Welcome.DisplayMenu();
                             }
                             break;
                         case 2:
@@ -52,12 +52,12 @@ namespace StudentHub.Models
                             {
                                 Console.WriteLine($"Thanks for confirming. Your password is {cred.password}\n" +
                                   $"Driving you to main menu \n");
-                                Welcome.DisplayOptions();
+                                Welcome.DisplayMenu();
                             }
                             else
                             {
                                 Console.WriteLine("The entered answer does not match. Driving you to main menu \n");
-                                Welcome.DisplayOptions();
+                                Welcome.DisplayMenu();
                             }
                             break;
                         case 3:
@@ -65,12 +65,12 @@ namespace StudentHub.Models
                             {
                                 Console.WriteLine($"Thanks for confirming. Your password is {cred.password}\n" +
                                   $"Driving you to main menu \n");
-                                Welcome.DisplayOptions();
+                                Welcome.DisplayMenu();
                             }
                             else
                             {
                                 Console.WriteLine("The entered answer does not match. Driving you to main menu \n");
-                                Welcome.DisplayOptions();
+                                Welcome.DisplayMenu();
                             }
                             break;
                     }
@@ -81,7 +81,7 @@ namespace StudentHub.Models
             {
                 Console.WriteLine("Sorry, the entered user name is not registered with us. " +
                     "Sending you back to main menu.\n\n");
-                Welcome.DisplayOptions();
+                Welcome.DisplayMenu();
 
             }
 

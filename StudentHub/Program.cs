@@ -11,7 +11,7 @@ namespace StudentHub
     {
         static void Main(string[] args)
         {
-            Welcome.DisplayOptions();
+            Welcome.DisplayMenu();
         }
     }
 }
