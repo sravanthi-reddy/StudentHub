@@ -26,3 +26,8 @@ C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\Studen
 C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\obj\Debug\StudentHub.csproj.CopyComplete
 C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\obj\Debug\StudentHub.exe
 C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\obj\Debug\StudentHub.pdb
+C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\bin\Debug\Settings.job
+C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\bin\Debug\StudentHub.exe.manifest
+C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\bin\Debug\StudentHub.application
+C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\obj\Debug\StudentHub.exe.manifest
+C:\Users\Sravanthi Nuthula\Desktop\BDAT_Syllabus\BDAT1004_DataProgramming\StudentHub\StudentHub\obj\Debug\StudentHub.application

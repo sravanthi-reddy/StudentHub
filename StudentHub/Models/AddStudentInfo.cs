@@ -83,46 +83,96 @@ namespace StudentHub.Models
                 string cntry = Console.ReadLine();
                 Console.WriteLine("26. ZipCode :");
                 string zip = Console.ReadLine();
+                if (sInformations == null)
+                {
+                    List<StudentInformation> info = new List<StudentInformation>();
+                    info.Add(new StudentInformation
+                    {
+                        StudentID = u,
+                        Name = new Name { FirstName = Fname, MiddleName = Mname, LastName = Lname },
+                        SocialInsuranceNumber = SIN,
+                        Email = new Email { PersonalEmail = PEmail, StudentEmail = $"{u}@student.college.on.ca" },
+                        Mobile = Mobile,
+                        Emergency = new Emergency
+                        {
+                            EmergencyContactName = EcontactName,
+                            EmergencyMobileNumber = Emobile,
+                            EmergencyRelation = EcontactRel
+                        },
+                        Nationality = Ntnlty,
+                        Term = term,
+                        CourseEnrolledIn = CourseEnroled,
+                        TimeTable = TimeTable,
+                        Skills = skills,
+                        OtherCourseInterests = Ocourse,
+                        WorkExperience = wrkexp,
+                        LinkedInURL = LinkedInURL,
+                        Passion = passion,
+                        GithubURL = git,
+                        MailingAddress = new MailingAddress
+                        {
+                            UnitNumber = Uno,
+                            StreetName = sName,
+                            StreetNumber = Sno,
+                            city = city,
+                            Province = prov,
+                            Country = cntry,
+                            ZipCode = zip
+                        }
+                    });
+                    var options = new JsonSerializerOptions { WriteIndented = true };
 
-                sInformations.Add(new StudentInformation
-                {
-                    StudentID = u,
-                    Name = new Name { FirstName = Fname, MiddleName = Mname, LastName = Lname },
-                    SocialInsuranceNumber = SIN,
-                    Email = new Email { PersonalEmail = PEmail, StudentEmail = $"{u}@student.college.on.ca" },
-                    Mobile = Mobile,
-                    Emergency = new Emergency
+                    string Jsonstring = JsonSerializer.Serialize(info, options);
+
+
+                    using (StreamWriter sw = new StreamWriter(Info_filepath))
                     {
-                        EmergencyContactName = EcontactName,
-                        EmergencyMobileNumber = Emobile,
-                        EmergencyRelation = EcontactRel
-                    },
-                    Nationality = Ntnlty,
-                    Term = term,
-                    CourseEnrolledIn = CourseEnroled,
-                    TimeTable = TimeTable,
-                    Skills = skills,
-                    OtherCourseInterests = Ocourse,
-                    WorkExperience = wrkexp,
-                    LinkedInURL = LinkedInURL,
-                    Passion = passion,
-                    GithubURL = git,
-                    MailingAddress = new MailingAddress
-                    {
-                        UnitNumber = Uno,
-                        StreetName = sName,
-                        StreetNumber = Sno,
-                        city = city,
-                        Province = prov,
-                        Country = cntry,
-                        ZipCode = zip
+                        sw.WriteLine(Jsonstring);
                     }
-                });
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string JsonInfostring = JsonSerializer.Serialize(sInformations, options);
-                using (StreamWriter swinfo = new StreamWriter(Info_filepath))
+
+                }
+                else
                 {
-                    swinfo.WriteLine(JsonInfostring);
+                    sInformations.Add(new StudentInformation
+                    {
+                        StudentID = u,
+                        Name = new Name { FirstName = Fname, MiddleName = Mname, LastName = Lname },
+                        SocialInsuranceNumber = SIN,
+                        Email = new Email { PersonalEmail = PEmail, StudentEmail = $"{u}@student.college.on.ca" },
+                        Mobile = Mobile,
+                        Emergency = new Emergency
+                        {
+                            EmergencyContactName = EcontactName,
+                            EmergencyMobileNumber = Emobile,
+                            EmergencyRelation = EcontactRel
+                        },
+                        Nationality = Ntnlty,
+                        Term = term,
+                        CourseEnrolledIn = CourseEnroled,
+                        TimeTable = TimeTable,
+                        Skills = skills,
+                        OtherCourseInterests = Ocourse,
+                        WorkExperience = wrkexp,
+                        LinkedInURL = LinkedInURL,
+                        Passion = passion,
+                        GithubURL = git,
+                        MailingAddress = new MailingAddress
+                        {
+                            UnitNumber = Uno,
+                            StreetName = sName,
+                            StreetNumber = Sno,
+                            city = city,
+                            Province = prov,
+                            Country = cntry,
+                            ZipCode = zip
+                        }
+                    });
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    string JsonInfostring = JsonSerializer.Serialize(sInformations, options);
+                    using (StreamWriter swinfo = new StreamWriter(Info_filepath))
+                    {
+                        swinfo.WriteLine(JsonInfostring);
+                    }
                 }
 
                 Console.WriteLine("Your Details are Saved Successfully. Sending you to Main Menu");

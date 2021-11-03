@@ -35,24 +35,49 @@ namespace StudentHub.Models
             Console.WriteLine("3. What is your mother's maiden name ?");
             string maiden_name = Console.ReadLine();
 
-            creds.Add(new StudentLogin
-            {
-                username = StudentId,
-                password = password,
-                FavouriteColour = Fav_clr,
-                FavouriteFood = Fav_food,
-                MotherMaidenName = maiden_name
-            });
-
-
             var options = new JsonSerializerOptions { WriteIndented = true };
-            string Jsonstring = JsonSerializer.Serialize(creds, options);
 
-
-            using (StreamWriter sw = new StreamWriter(login_filepath))
+            if (creds == null)
             {
-                sw.WriteLine(Jsonstring);
+                List<StudentLogin> login = new List<StudentLogin>();
+                login.Add(new StudentLogin
+                {
+                    username = StudentId,
+                    password = password,
+                    FavouriteColour = Fav_clr,
+                    FavouriteFood = Fav_food,
+                    MotherMaidenName = maiden_name
+                });
+                string Jsonstring = JsonSerializer.Serialize(login, options);
+
+
+                using (StreamWriter sw = new StreamWriter(login_filepath))
+                {
+                    sw.WriteLine(Jsonstring);
+                }
+
             }
+            else
+            {
+                creds.Add(new StudentLogin
+                {
+                    username = StudentId,
+                    password = password,
+                    FavouriteColour = Fav_clr,
+                    FavouriteFood = Fav_food,
+                    MotherMaidenName = maiden_name
+                });
+                string Jsonstring = JsonSerializer.Serialize(creds, options);
+
+
+                using (StreamWriter sw = new StreamWriter(login_filepath))
+                {
+                    sw.WriteLine(Jsonstring);
+                }
+
+            }
+
+
 
             Console.WriteLine("Yayyy!! We have registered you in the Student Hub.\n\n" +
                 "Please Provide your answers for the below questions\n" +

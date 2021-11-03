@@ -10,17 +10,15 @@ namespace StudentHub.Models
 {
     class RecoverAccount
     {
-        public void RecoverySecurityCheck(string path)
+        public void RecoverySecurityCheck(List<StudentLogin> creds)
         {
             GetRandomNumber RG = new GetRandomNumber();
             bool NoAccountExists = true;
-            string login_filepath = path + "StudentLoginCreds.json";
             Console.WriteLine("Enter your UserName : ");
             string u = Console.ReadLine();
 
-            var creds_read = File.ReadAllText(login_filepath);
-            var creds = JsonConvert.DeserializeObject<List<StudentLogin>>(creds_read);
             Welcome w = new Welcome();
+            
             foreach (var cred in creds)
             {
                 if (cred.username == u)

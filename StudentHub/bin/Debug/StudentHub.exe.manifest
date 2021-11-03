@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StudentHub.exe" size="30760">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StudentHub.exe" size="33832">
       <assemblyIdentity name="StudentHub" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>nH3IdFW+AKMeio52DJE3NjwtrJTnsZjaR3BpHkPFFRQ=</dsig:DigestValue>
+        <dsig:DigestValue>U7Mc9afaEc8D1je4W4PsB/zYdYp16Q1ltt7GU+OZ4Ps=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
