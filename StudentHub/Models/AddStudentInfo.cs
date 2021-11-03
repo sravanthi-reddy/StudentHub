@@ -179,7 +179,7 @@ namespace StudentHub.Models
             }
             catch (Exception exc)
             {
-                Console.WriteLine("Please enter valid email id");
+                Console.WriteLine("Please Give Proper Details");
                 Welcome.DisplayMenu();
 
             }

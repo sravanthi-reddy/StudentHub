@@ -93,7 +93,7 @@ namespace StudentHub.Models
                 }
             }else
             {
-                Console.WriteLine("Please choose an integer from 1 to 4");
+                Console.WriteLine("Please choose an integer from 1 to 5");
                 Welcome.DisplayMenu();
             }
             Console.ReadKey();       
